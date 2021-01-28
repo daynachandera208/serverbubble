@@ -4,7 +4,7 @@
   "private": true,  
 "scripts": {
     "schema-codegen": "schema-codegen DemoRoom.ts --csharp --output ../Assets/",
-    "start": "ts-node ./index.ts"
+    "start": "ts-node index.ts"
   },
   "engines": {
     "node": ">= 8.x"
