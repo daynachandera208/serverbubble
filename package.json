@@ -1,13 +1,7 @@
-{
-  "name": "colyseus-unity3d",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/colyseus/colyseus-unity3d.git"
-  },
+
   "scripts": {
     "schema-codegen": "schema-codegen DemoRoom.ts --csharp --output ../Assets/",
-    "start": "node index.js"
+    "start": "ts-node ./index.ts"
   },
   "engines": {
     "node": ">= 8.x"
