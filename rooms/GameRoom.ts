@@ -258,7 +258,7 @@ this.isAvailable=true;
       this.state.roomStatus='waiting';
       this.playercounter++;
       this.startGame();
-      },2000);
+      },15000);
       
     }
     else if(this.state.player2==null && this.playercounter==1)
