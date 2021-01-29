@@ -517,7 +517,8 @@ this.isAvailable=true;
      // this.state.botData.currentLevelStartTime=this.state.player2.secondsLeft;
       this.getBotMove();
       this.clock.setTimeout(()=>{
-        this.checkBotLevelState();
+         if(this.isAvailable){
+        this.checkBotLevelState();}
         this.state.player2.TotalScore+=this.state.player2.currentLevelScore;
           this.state.player2.TotalStars+=this.state.player2.currentStars;
           this.state.player2.currentLevelScore=0;
