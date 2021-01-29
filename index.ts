@@ -20,7 +20,7 @@ app.use(cors());
 
 const gameServer = new Server({
   server: http.createServer(app),
-  pingInterval: 0,
+  pingInterval: 3000,
 });
 
 // Register DemoRoom as "demo"
