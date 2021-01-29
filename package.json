@@ -4,10 +4,11 @@
   "private": true,  
 "scripts": {
     "schema-codegen": "schema-codegen DemoRoom.ts --csharp --output ../Assets/",
-    "start": "ts-node index.ts"
+   "start": "npx ts-node index.ts"
   },
   "engines": {
-    "node": ">= 8.x"
+    "node": "14.15.4",
+    "npm": "6.14.10"
   },
   "dependencies": {
     "@colyseus/social": "^0.10.0",
