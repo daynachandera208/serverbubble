@@ -7,7 +7,7 @@
   },
   "scripts": {
     "schema-codegen": "schema-codegen DemoRoom.ts --csharp --output ../Assets/",
-    "start": "npx ts-node ./index.ts"
+    "start": "npx ts-node index.ts"
   },
   "engines": {
     "node": "14.15.4",
