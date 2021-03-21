@@ -111,7 +111,7 @@ this.isAvailable=true;
           this.state.player1.currentLevelScore=0;
           this.state.player1.currentStars=0;
           client.send("LoadLevel",{lvl:this.state.player1.currentLevel});   
-          
+           
         }
         if(cmd.indexOf("NewScore:-")!=-1)
         {
@@ -214,8 +214,9 @@ this.isAvailable=true;
   }
 
   async onAuth (client, options) {
-    console.log("onAuth(), options!", options);
-    return await User.findById(verifyToken(options.token)._id);
+   // console.log("onAuth(), options!", options);
+    //return await User.findById(verifyToken(options.token)._id);
+  return true;
   }
 
 
@@ -258,7 +259,7 @@ this.isAvailable=true;
       this.state.roomStatus='waiting';
       this.playercounter++;
       this.startGame();
-      },2000);
+      },20000);
       
     }
     else if(this.state.player2==null && this.playercounter==1)
@@ -516,6 +517,7 @@ this.isAvailable=true;
      // this.state.botData.currentLevelStartTime=this.state.player2.secondsLeft;
       this.getBotMove();
       this.clock.setTimeout(()=>{
+        if(this.isAvailable)
         this.checkBotLevelState();
         this.state.player2.TotalScore+=this.state.player2.currentLevelScore;
           this.state.player2.TotalStars+=this.state.player2.currentStars;
