@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using InitScriptName;
-
+//main script responsible for creation of balls and level generation reads data from .txt files
 public class creatorBall : MonoBehaviour
 {
     public static creatorBall Instance;
@@ -34,7 +34,7 @@ public class creatorBall : MonoBehaviour
     private LIMIT limitType;
 
     // Use this for initialization
-    void Start()
+    void Start()//instantiate and load map data
     {
         Instance = this;
         ball = ball_hd;
@@ -85,8 +85,39 @@ public class creatorBall : MonoBehaviour
         return true;
     }
 
-    void ProcessGameDataFromString(string mapText)
+    void ProcessGameDataFromString(string mapText)// main logic for map reading from .txt file
     {
+
+
+        //
+        //bot data structure is as - BotData 5-15-0-500-72-125-4500-30000-1 (args= Min_Time_For_shoot-max_time_for_shoot-min_score_pre_shoot-max_scores_for_shoot-min_time_to_stay_in_level-max_time_tofinish_level-min_level_score-max_level_score-hardnessscaler)
+        //Fireball 7-5-2 (args- "Moves after it spans"-"Probability to span from 0-100"-"total no of spans" ) for fireball
+        //Bomb 5 - 5 - 4 (args- "Moves after it spans"-"Probability to span from 0-100"-"total no of spans" ) for bomb
+        //Multicolor 3 - 5 - 7 (args- "Moves after it spans"-"Probability to span from 0-100"-"total no of spans" ) for multicolor ball
+        //Structure of text file like this:
+        //1st: Line start with "GM". This is game mode line (0-Move Limit, 1-Time Limit)
+        //2nd: Line start with "LMT" is limit amount of play time (time of move or seconds depend on game mode)
+        //Ex: LMT 20  mean player can move 20 times or 20 seconds, depend on game mode
+        //3rd: Line start with "MNS" is missions line. This is amount ofScore/Block/Ring/... 
+        //Ex: MNS 10000/24/0' mean user need get 1000 points, 24 block, and not need to get rings.
+        //4th:Map lines: This is an array of square types.
+        //First thing is split text to get all in arrays of text
+        //1-for blue
+        //2- green
+        //3- red
+        //4- violate
+        //5- yello
+        //6- random
+        //7- chicken
+        //8- eater
+        //9 - frozen
+        //10- stone
+        //11 - rowremover
+        // 12 - rowadder
+        //0 - no ball
+        //color-Chain-chain_no-chain_lvl
+        //color-BGum-bgumno
+        //color-DoubleColor-second_color
         string[] lines = mapText.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
         LevelData.colorsDict.Clear();
         int mapLine = 0;
@@ -630,18 +661,18 @@ public class creatorBall : MonoBehaviour
         b.tag = "" + color;
         if (b.tag == "frozen")//Giving ice tint to iceclube bubbles
         {
-            Color iceColor;
-            b.GetComponent<SpriteRenderer>().color= new Color(144f,205f,253f);
-            ColorUtility.TryParseHtmlString("#90CDFD", out iceColor);
-            b.GetComponent<SpriteRenderer>().color = iceColor;
+            //Color iceColor;
+           // b.GetComponent<SpriteRenderer>().color= new Color(144f,205f,253f);
+           // ColorUtility.TryParseHtmlString("#90CDFD", out iceColor);
+           // b.GetComponent<SpriteRenderer>().color = iceColor;
             
             
         }
         if(b.tag == "eater")
         {
             this.eaterBallToActive = b;
-            Invoke("AddEater",2f);
-            //AddEater(b);
+            //Invoke("AddEater",0.2f);
+            AddEater();
             /*CircleCollider2D bubbleColliderForEater = b.GetComponent<CircleCollider2D>();
             if (bubbleColliderForEater.isTrigger) {
                 bubbleColliderForEater.enabled = true;

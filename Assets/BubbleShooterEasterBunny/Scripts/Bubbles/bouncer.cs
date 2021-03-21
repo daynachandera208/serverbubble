@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+// applied and stays active for all balls thus used to store information about powerups
 public class bouncer : MonoBehaviour
 {
     Vector3 tempPosition;
@@ -81,7 +81,7 @@ public class bouncer : MonoBehaviour
     }*/
 
 
-    public void ChangeMulticolorColor() {
+    public void ChangeMulticolorColor() {//logic for changing color of multicolor balls
 
         // if (gameObject.GetComponent<bouncer>().doesExecuteChangeColor)
         {
@@ -119,7 +119,7 @@ public class bouncer : MonoBehaviour
 
     }
 
-    public void CheckNearestForBubbleGum()
+    public void CheckNearestForBubbleGum()//logic to get candidates for bubblegum spawnning
     {
 //        Debug.Log("Call To connect near for bubble");
       
@@ -150,7 +150,7 @@ public class bouncer : MonoBehaviour
         
         
     }
-    public static void SpreadBubbleGum() {
+    public static void SpreadBubbleGum() {//logic for spreding bubblegum
         //for (int i = 0; i < 100 && GamePlay.Instance.candidatesForSpreadingBGum[i]!=null && GamePlay.Instance.candidatesForSpreadingBGum[i].GetComponent<ball>().Destroyed==false; i++) {  Debug.Log(GamePlay.Instance.candidatesForSpreadingBGum[i]+"-----"+i); GamePlay.Instance.candidatesForSpreadingBGum[i].transform.GetChild(4).GetComponent<SpriteRenderer>().enabled = true; }
          GameObject[] fixedBallsForAddingNoOFBGum = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
         LevelData.allBGumNo.Clear();
@@ -189,7 +189,7 @@ public class bouncer : MonoBehaviour
 
 
     }
-    public void CheckNearestColorForMulticolor()
+    public void CheckNearestColorForMulticolor()//used to get colors for multicolor ball
     {
         //        Debug.Log("workingg...1");
         // gameObject.GetComponent<bouncer>().colorForNearsetMulticolor.Clear();

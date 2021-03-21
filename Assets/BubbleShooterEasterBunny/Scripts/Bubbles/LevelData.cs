@@ -6,7 +6,8 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Reflection;
 using System.Xml;
-
+//singleton class used to store mapping of balls for level generation and powerups(chain , bubblegum etc) but just in initial stage
+//note: from here no level data actually derived from .txt file that logic is in creator ball
 public enum ModeGame
 {
     Vertical=0,

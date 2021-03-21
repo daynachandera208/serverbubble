@@ -73,7 +73,7 @@ public class ball : MonoBehaviour
     RaycastHit2D[] bugHits2;
     RaycastHit2D[] bugHits3;
     public bool falling;
-    Animation rabbit;
+   // Animation rabbit;
     private int HitBug;
     private bool fireBall;
     private static int fireworks;
@@ -92,18 +92,11 @@ public class ball : MonoBehaviour
                 HitBug = value;
         }
     }
-    //for eater bubble event
-   /* private void OnTriggerEnter2D(Collider other)
-    {
-       // if(other.gameObject.tag=="eater")
-        {
-            Debug.Log("TriggerEnter From Shooter......................!");
-        }
-    }*/
+ 
     // Use this for initialization
     void Start()
     {
-        rabbit = GameObject.Find( "Rabbit" ).gameObject.GetComponent<Animation>();
+//        rabbit = GameObject.Find( "Rabbit" ).gameObject.GetComponent<Animation>();
         meshPos = new Vector3( -1000, -1000, -10 );
         //  sprite = GetComponent<OTSprite>();
         //sprite.passive = true;
@@ -145,7 +138,7 @@ public class ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( Input.GetMouseButtonUp( 0 ) )
+        if( Input.GetMouseButtonUp( 0 ) )//shooting action code
         {
             GameObject ball = gameObject;
 
@@ -155,10 +148,11 @@ public class ball : MonoBehaviour
             {
                 Vector3 pos = Camera.main.ScreenToWorldPoint( Input.mousePosition );
                 worldPos = pos;
+//                print( " World pos Y ::"+ worldPos.y);
                 if( worldPos.y > -1.5f && !mainscript.StopControl )
                 {
                     launched = true;
-                    rabbit.Play( "rabbit_move" );
+                 //   rabbit.Play( "rabbit_move" );
                     SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot( SoundBase.Instance.swish[0] );
                     mTouchOffsetX = ( worldPos.x - ball.transform.position.x ); //+ MathUtils.random(-10, 10);
                     mTouchOffsetY = ( worldPos.y - ball.transform.position.y );
@@ -176,38 +170,52 @@ public class ball : MonoBehaviour
                     mainscript.Instance.newBall = gameObject;
                     mainscript.Instance.newBall2 = gameObject;
                     GetComponent<Rigidbody2D>().AddForce( target - dropTarget, ForceMode2D.Force );
+                  //  print(" Force is ==="+ (target - dropTarget)+ ForceMode2D.Force);
                     GetComponent<bouncer>().isShooter = true;
                     //Debug.DrawLine( DrawLine.waypoints[0], target );
                     //Debug.Break();
                 }
             }
         }
-        if( transform.position != target && setTarget && !stopedBall && !isPaused && Camera.main.GetComponent<mainscript>().dropDownTime < Time.time )
+        if( transform.position != target && setTarget && !stopedBall && !isPaused && Camera.main.GetComponent<mainscript>().dropDownTime < Time.time )//Ball is in air towards target
         {
             float totalVelocity = Vector3.Magnitude( GetComponent<Rigidbody2D>().velocity );
-            if( totalVelocity > 20 )
+           // print(" Adding force to ball ...........!111 valocity"+ totalVelocity);
+
+            if ( totalVelocity > 20 )
             {
                 float tooHard = totalVelocity / ( 20 );
                 GetComponent<Rigidbody2D>().velocity /= tooHard;
-
+               // print(" Adding force to ball ...........!222");
+//
             }
             else if( totalVelocity < 15 )
             {
                 float tooSlowRate = totalVelocity / ( 15 );
                 if( tooSlowRate != 0 )
                     GetComponent<Rigidbody2D>().velocity /= tooSlowRate;
+             //   print(" Adding force to ball ...........!333");
 
 
             }
 
-            if( GetComponent<Rigidbody2D>().velocity.y < 1.5f && GetComponent<Rigidbody2D>().velocity.y > 0 ) GetComponent<Rigidbody2D>().velocity = new Vector2( GetComponent<Rigidbody2D>().velocity.x, 1.7f );
-        }
-        if( setTarget )
-            triggerEnter();
+            if (GetComponent<Rigidbody2D>().velocity.y < 1.5f && GetComponent<Rigidbody2D>().velocity.y > 0)
+            {
+               // print(" Adding force to ball ...........!333");
 
+                GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 1.7f);
+            }
+        }
+        if (setTarget)
+        {
+          //  print("Entering trigger ");
+            triggerEnter();
+            }
 		if( (transform.position.y <= -10 || transform.position.y >= 5) && fireBall && !Destroyed  )
 		{
-			mainscript.Instance.CheckFreeChicken();
+          //  print("destroying here trigger ");
+
+            mainscript.Instance.CheckFreeChicken();
 			setTarget = false;
 			launched = false;
 			DestroySingle(gameObject, 0.00001f);
@@ -219,14 +227,28 @@ public class ball : MonoBehaviour
     {
         UnityEngine.EventSystems.EventSystem ct
            = UnityEngine.EventSystems.EventSystem.current;
-
-
-        if ( ct.IsPointerOverGameObject())
+       
+     /*   Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - GameObject.Find("Cannon").transform.position;
+        difference.Normalize();
+        float rotation_z = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+      //  Cannon.transform.rotation = Quaternion.Euler(0f, 0f, rotation_z + (-90));
+         print(" y=<><><><><><><><><><><><<>><<<>>><> "+ rotation_z + (-90)); */
+        if (ct.IsPointerOverGameObject() )
+        {
+        //    print("true <<>><<<>>><<<<>>>><>");
             return true;
-        return false;
+           
+        }
+        else
+        {
+          //  print("false <<>><<<>>><<<<>>>><>");
+            return false;
+           
+
+        }
     }
 
-    public void SetBoost( BoostType boostType )
+    public void SetBoost( BoostType boostType )//setting up boost in game sapwn and inapp purchases
     {
         tag = "Ball";
         GetComponent<SpriteRenderer>().sprite = boosts[(int)boostType - 1];
@@ -309,7 +331,7 @@ public class ball : MonoBehaviour
     }
 
 
-    public void checkNextNearestColor( ArrayList b, int counter ,string tag1)
+    public void checkNextNearestColor( ArrayList b, int counter ,string tag1) // pair of 2 asme methods to get nearest connected balls form connected balls 
     {
         //		Debug.Log(b.Count);
         Vector3 distEtalon = transform.localScale;
@@ -343,7 +365,7 @@ public class ball : MonoBehaviour
         }
     }
 
-    public void checkNearestColor()
+    public void checkNearestColor() // calls checkNextNearestColor on conneted balls in short this method is used to connect all same colored balls in array b using checkNextNearestColor Method and destroyes balls on hit if found same balls no >=3 
     {
         int counter = 0;
         GameObject[] fixedBalls = GameObject.FindObjectsOfType( typeof( GameObject ) ) as GameObject[];			// change color tag of the rainbow
@@ -366,7 +388,7 @@ public class ball : MonoBehaviour
         {
             /*if ( obj.gameObject.tag==tag)
             {
-                Debug.Log(tag+"==doyble="+ obj.gameObject.GetComponent<bouncer>().DoubleColor+"------------obj value"+ obj.gameObject.tag);
+                Debug.Log(tag+"==double="+ obj.gameObject.GetComponent<bouncer>().DoubleColor+"------------obj value"+ obj.gameObject.tag);
                 float distTemp = Vector3.Distance(transform.position, obj.transform.position);
                 if (distTemp <= 0.9f && distTemp > 0)
                 {
@@ -425,7 +447,7 @@ public class ball : MonoBehaviour
     }
 
 
-    public void StartFall()
+    public void StartFall() // logic for falling of balls from mesh
     {
         enabled = false;
 
@@ -443,7 +465,9 @@ public class ball : MonoBehaviour
         setTarget = false;
         transform.SetParent( null );
         gameObject.layer = 13;
-        gameObject.tag = "Ball";
+        if (gameObject.name.Contains("ball") && !System.Array.Exists(GamePlay.Instance.avoidToChangeInMulticolor, element => element == gameObject.tag.ToString()))
+
+            gameObject.tag = "Ball";
         if( gameObject.GetComponent<Rigidbody2D>() == null ) gameObject.AddComponent<Rigidbody2D>();
         /*for (int i = 0; i < 100; i++)
         {
@@ -460,12 +484,13 @@ public class ball : MonoBehaviour
 
     }
 
-    IEnumerator FlyToTarget()
+    IEnumerator FlyToTarget()//used to animate target from mesh to ui
     {
         Vector3 targetPos = new Vector3( 2.3f, 6, 0 );
-        if(mainscript.Instance.TargetCounter1 < mainscript.Instance.TotalTargets)
-            mainscript.Instance.TargetCounter1++;
-
+        if (mainscript.Instance.TargetCounter1 < mainscript.Instance.TotalTargets)
+        {
+            mainscript.Instance.TargetCounter1++;//print("target plus from ball.cs");
+        }
         AnimationCurve curveX = new AnimationCurve( new Keyframe( 0, transform.position.x ), new Keyframe( 0.5f, targetPos.x ) );
         AnimationCurve curveY = new AnimationCurve( new Keyframe( 0, transform.position.y ), new Keyframe( 0.5f, targetPos.y ) );
         curveY.AddKey( 0.2f, transform.position.y - 1 );
@@ -484,43 +509,7 @@ public class ball : MonoBehaviour
 
     }
 
-  /*  public bool checkNearestBall( ArrayList b )
-    {
-        if(( mainscript.Instance.TopBorder.transform.position.y - transform.position.y <= 0.5f && LevelData.mode != ModeGame.Rounded ) || ( LevelData.mode == ModeGame.Rounded && tag == "chicken" ) )
-        {
-            Camera.main.GetComponent<mainscript>().controlArray = addFrom( b, Camera.main.GetComponent<mainscript>().controlArray );
-            b.Clear();
-            return true;    /// don't destroy
-        }
-        if( findInArray( Camera.main.GetComponent<mainscript>().controlArray, gameObject ) ) { b.Clear(); return true; } /// don't destroy
-        b.Add( gameObject );
-        foreach( GameObject obj in nearBalls )
-        {
-            if( obj != gameObject && obj != null /* && !obj.gameObject.GetComponent<bouncer>().isShooterBubbleDisabled *//*&& obj.GetComponent<bouncer>().bGumNo == 0)//&& obj.gameObject.tag != "stone")
-            {
-                if( obj.gameObject.layer == 9 )
-                {
-                    //if(findInArray(Camera.main.GetComponent<mainscript>().controlArray, obj.gameObject)){b.Clear(); return true;} /// don't destroy
-                    //else{
-                    float distTemp = Vector3.Distance( transform.position, obj.transform.position );
-                    if( distTemp <= 0.9f && distTemp > 0 )
-                    {
-                        if( !findInArray( b, obj.gameObject ) )
-                        {
-                            //print( gameObject + " " + distTemp );
-                            Camera.main.GetComponent<mainscript>().arraycounter++;
-                            if( obj.GetComponent<ball>().checkNearestBall( b ) )
-                                return true;
-                        }
-                    }
-                    //}
-                }
-            }
-        }
-        return false;
-
-    }*/
-    public bool checkNearestBall( ArrayList b )
+    public bool checkNearestBall( ArrayList b )//same functionality as above checkNextNearestColor group but used for different purpouses than destroying balls on shooter ball hit
     {//
         if(( mainscript.Instance.TopBorder.transform.position.y - transform.position.y <= 0.5f && LevelData.mode != ModeGame.Rounded ) || ( LevelData.mode == ModeGame.Rounded && tag == "chicken" ) )
         {
@@ -556,7 +545,7 @@ public class ball : MonoBehaviour
         return false;
 
     }
-    public void connectNearBalls()
+    public void connectNearBalls()//same functionality as above checkNextNearestColor group but used for different purpouses than destroying balls on shooter ball hit
     {//stores nearballs for given ball in nearball arraylist and sets countnearballs
         int layerMask = 1 << LayerMask.NameToLayer( "Ball" );
         Collider2D[] fixedBalls = Physics2D.OverlapCircleAll( transform.position, 0.5f, layerMask );
@@ -578,7 +567,7 @@ public class ball : MonoBehaviour
         countNEarBalls = nearBalls.Count;
     }
 
-    IEnumerator pullToMesh( Transform otherBall = null )
+    IEnumerator pullToMesh( Transform otherBall = null )// logic to  adjust shooter ball on mesh of balls
     {
         //	AudioSource.PlayClipAtPoint(join, new Vector3(5, 1, 2));
         GameObject busyMesh = null;
@@ -759,7 +748,7 @@ public class ball : MonoBehaviour
     }
     void OnTriggerStay2D( Collider2D other )
     {
-        if( findMesh && other.gameObject.layer == 9 )
+       // if( findMesh && other.gameObject.layer == 9 )
         {
             //	StartCoroutine(pullToMesh());
         }
@@ -794,7 +783,7 @@ public class ball : MonoBehaviour
         OnTriggerEnter2D( coll.collider );
     }
 
-    void OnTriggerEnter2D( Collider2D other )
+    void OnTriggerEnter2D( Collider2D other )//main logic for operations performed when shooting ball hits the balls of mesh most powerups logic is called here
     {
         
         // stop
@@ -880,16 +869,79 @@ public class ball : MonoBehaviour
                     }
                     if (other.gameObject.tag == "rowRemover") // code for removing row of row remover bubble
                     {
-                        ArrayList b;
+                       
                         float rowToRemove = other.gameObject.GetComponent<Transform>().position.y;
+                        int index=0;
                         GameObject[] fixedBalls = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
+                        int[] b =new int[20];
                         foreach (GameObject obj in fixedBalls)
                         {
-                            if (obj.layer == 9 && obj.GetComponent<Transform>().position.y == rowToRemove)
+                            if (obj.layer == 9 && obj.GetComponent<Transform>().position.y == rowToRemove && obj.gameObject.GetComponent<bouncer>().chainNo==0 )//&& obj.gameObject.GetComponent<bouncer>().bGumNo==0 )
                             {
                                 DestroySingle(obj);
                             }
+                            else if (obj.layer == 9 && obj.GetComponent<Transform>().position.y == rowToRemove && obj.gameObject.GetComponent<bouncer>().chainNo != 0)
+                            {
+                                if (index != 0) {
+                                    for(int i=0;i<index;i++) {
+                                        if (b[i] == obj.GetComponent<bouncer>().chainNo)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            b[index] = obj.GetComponent<bouncer>().chainNo;
+                                            index++;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    b[index] = obj.GetComponent<bouncer>().chainNo;
+                                    index++;
+                                }
+                                    
+                            }
                            
+
+                        }
+                        ArrayList ChainsToRemove = new ArrayList();
+                        for (int i = 0; i < index; i++)
+                        {
+                            
+                            foreach (GameObject obj in fixedBalls)
+                            {
+
+                                if (obj.layer == 9 && obj.GetComponent<bouncer>().chainNo == b[i] )
+                                {
+                                    if (obj.GetComponent<bouncer>().chainLevel == 1)
+                                    {
+                                        obj.GetComponent<bouncer>().chainLevel = 0;
+
+
+                                        obj.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+                                        ChainsToRemove.Add(obj);
+                                    }
+                                    if (obj.GetComponent<bouncer>().chainLevel == 2)
+                                    {
+                                        obj.GetComponent<bouncer>().chainLevel = 0;
+
+                                        obj.transform.GetChild(1).GetComponent<SpriteRenderer>().enabled = false;
+                                        obj.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+                                        ChainsToRemove.Add(obj);
+
+                                       
+                                    }
+                                }
+                            }
+                        }
+                        foreach (GameObject obj in ChainsToRemove)
+                        {
+                            obj.GetComponent<bouncer>().chainNo = 0;
+                            if (obj.transform.position.y == rowToRemove)
+                            {
+                                DestroySingle(obj);
+                            }
 
                         }
                         mainscript.Instance.destroyhanngingballs();
@@ -1009,7 +1061,7 @@ public class ball : MonoBehaviour
                         }
                         else
                             isMoveMinus = false;
-                        //Debug.Log(" Call to destroy.........! ");
+                        Debug.Log(" Call to destroy.........! ");
                         Destroy(gameObject);
 
                         //   grid.B
@@ -1069,7 +1121,7 @@ public class ball : MonoBehaviour
 
     }
 
-    public void FillCavity(float topRow)
+    public void FillCavity(float topRow) //used for rowadder logic
     {
 
         float lastRow = 100f;
@@ -1101,7 +1153,7 @@ public class ball : MonoBehaviour
 
     }
 
-    void AddRowToY(float rowY)
+    void AddRowToY(float rowY)//older logic  for row adder working correctly but don't found usefull because it's below balls sometimes falls as pattern in zigzag mesh not able to shift correctly
     {
         GameObject[] fixedBalls = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
         GamePlay.Instance.shiftball.Clear();
@@ -1125,8 +1177,8 @@ public class ball : MonoBehaviour
 
     }
 
-    void MoveBubbles1RowDown(float topRow )
-    {
+    void MoveBubbles1RowDown(float topRow)//older logic  for row adder working not correctly and not found usefull because it's below balls sometimes falls as pattern in zigzag mesh not able to shift correctly
+    {//here multiple attempts with different ways to achive row shifting without problem failed untill moving 2 rows but causes problems when any immovable(i.e chain or stone)comes in way
         float lastRow=100f;
         //float[][] meshPositions={ { },{ } };
         float minXOfBall = 100f,offset=-0.33f;
@@ -1422,7 +1474,7 @@ public class ball : MonoBehaviour
 
     }
 
-   /* public void MoveChildsOFRow(GameObject obj,bool Temp, int meshNo)
+   /* public void MoveChildsOFRow(GameObject obj,bool Temp, int meshNo) not useful attempt for row adder
     {
         foreach (GameObject objToMove in GamePlay.Instance.shiftMesh)
         {
@@ -1454,7 +1506,7 @@ public class ball : MonoBehaviour
             objParent.GetComponent<Grid>().Busy = null;
         }
     }*/
-    void StopBall( bool pulltoMesh = true, Transform otherBall = null )
+    void StopBall( bool pulltoMesh = true, Transform otherBall = null )//called when ontriggerenter2D logic is over and shooting ball is going to add to mesh 
     {
         launched = true;
         mainscript.lastBall = gameObject.transform.position;
@@ -1537,15 +1589,22 @@ public class ball : MonoBehaviour
 
     }
 
-    void triggerEnter()
+    void triggerEnter()//direction changes of shooted ball
     {
+      //  print(" trigger  0"+ "  form .position " + transform.position.y + " Bottom border  " + bottomBorder + " target y" + target.y);
+     
 
         // check if we collided with a bottom block and adjust our speed and rotation accordingly
-        if( transform.position.y <= bottomBorder && target.y < 0 )
+        if ( transform.position.y <= bottomBorder && target.y < 0 )
         {
+
+          //  print(" trans form .position "+ transform.position.y+" Bottom border  "+ bottomBorder+" target y"+ target.y);
+           // print(" trigger  1");
+
             growUp();
             StopBall( false );
-            //target = new Vector2( target.x, target.y * -1 );
+
+           // target = new Vector2( target.x, target.y * -1 );
         }
         else
         {
@@ -1553,6 +1612,8 @@ public class ball : MonoBehaviour
             //// check if we collided with a left block and adjust our speed and rotation accordingly
             if( transform.position.x <= leftBorder && target.x < 0 && !touchedSide && fireBall )
             {
+             //   print(" trigger  2");
+
                 //  touchedSide = true;
                 Invoke( "CanceltouchedSide", 0.1f );
                  target = new Vector2( target.x * -1, target.y );
@@ -1561,6 +1622,8 @@ public class ball : MonoBehaviour
             // check if we collided with a right block and adjust our speed and rotation accordingly
             if( transform.position.x >= rightBorder && target.x > 0 && !touchedSide && fireBall )
             {
+              //  print(" trigger  3");
+
                 //  touchedSide = true;
                 Invoke( "CanceltouchedSide", 0.1f );
                  target = new Vector2( target.x * -1, target.y );
@@ -1569,6 +1632,8 @@ public class ball : MonoBehaviour
 //             check if we collided with a right block and adjust our speed and rotation accordingly
             if( transform.position.y >= topBorder && target.y > 0 && LevelData.mode == ModeGame.Rounded && !touchedTop )
             {
+               // print(" trigger  4");
+
                 touchedTop = true;
                 // target = new Vector2( target.x, -target.y );
                 GetComponent<Rigidbody2D>().velocity = new Vector2( GetComponent<Rigidbody2D>().velocity.x, GetComponent<Rigidbody2D>().velocity.y * -1 );
@@ -1589,7 +1654,7 @@ public class ball : MonoBehaviour
 
     public void destroy( ArrayList b, float speed = 0.1f )
     {
-        StartCoroutine( DestroyCor( b, speed ) );
+        StartCoroutine( DestroyCor( b, speed ) );//used fdor destruction of balls
     }
 
     IEnumerator DestroyCor( ArrayList b, float speed = 0.1f )
@@ -1638,7 +1703,7 @@ public class ball : MonoBehaviour
 
     }
 
-    void DestroySingle( GameObject obj, float speed = 0.1f )
+    void DestroySingle( GameObject obj, float speed = 0.1f )//used to destroy single ball
     {
         Camera.main.GetComponent<mainscript>().bounceCounter = 0;
         int scoreCounter = 0;

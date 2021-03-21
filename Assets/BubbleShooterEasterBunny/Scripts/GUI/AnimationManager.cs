@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using InitScriptName;
 using System.Collections.Generic;
 using TMPro;
-
+//used to navigaqte thrue Ui and play animations 
 public class AnimationManager : MonoBehaviour
 {
     public bool PlayOnEnable = true;
@@ -286,9 +286,9 @@ public class AnimationManager : MonoBehaviour
     public void BuyLife( GameObject button )
     {
         SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot( SoundBase.Instance.click );
-        if( InitScript.Gems >= int.Parse( button.transform.Find( "Price" ).GetComponent<Text>().text ) )
+        if( InitScript.Gems >= int.Parse( button.transform.Find( "Price" ).GetComponent<TextMeshProUGUI>().text ) )
         {
-            InitScript.Instance.SpendGems( int.Parse( button.transform.Find( "Price" ).GetComponent<Text>().text ) );
+            InitScript.Instance.SpendGems( int.Parse( button.transform.Find( "Price" ).GetComponent<TextMeshProUGUI>().text ) );
             InitScript.Instance.RestoreLifes();
             CloseMenu();
         }
@@ -388,7 +388,8 @@ public class AnimationManager : MonoBehaviour
            
         }
         else
-            Application.Quit();
+            Application.LoadLevel("menu");
+        //Application.Quit();
     }
 
     public IEnumerator GameFinishedAction()

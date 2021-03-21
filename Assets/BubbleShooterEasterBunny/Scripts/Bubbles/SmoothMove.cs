@@ -11,7 +11,7 @@ public class SmoothMove : MonoBehaviour {
             StartCoroutine( StartMove() );
         else
         {
-               mainscript.Instance.TargetCounter1++;
+               mainscript.Instance.TargetCounter1++;//print("from sm.cs start()");
         }
 	}
 	
@@ -20,6 +20,7 @@ public class SmoothMove : MonoBehaviour {
         GetComponent<SpriteRenderer>().sortingLayerName = "UI layer";
 
         mainscript.Instance.TargetCounter1++;
+        print("from sm.cs startMove()");
         AnimationCurve curveX = new AnimationCurve( new Keyframe( 0, transform.position.x ), new Keyframe( 0.5f, targetPos.x ) );
         AnimationCurve curveY = new AnimationCurve( new Keyframe( 0, transform.position.y ), new Keyframe( 0.5f, targetPos.y ) );
         curveY.AddKey( 0.2f, transform.position.y - 4 );

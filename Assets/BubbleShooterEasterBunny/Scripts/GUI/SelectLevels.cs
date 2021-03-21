@@ -16,26 +16,25 @@ public class SelectLevels : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        GenerateGrid();
+        GenerateGrid(0);
     }
 
 
     void GenerateGrid(int genfrom = 0)
     {
         int l = 0;
-        int posCOunter = 0;
+        
         ClearLevels();
         firstShownLevelInGrid = genfrom;
         latestFile = GetLastLevel();
-        for (l = genfrom; l < latestFile; l++)
+        l = genfrom; 
+        
+        for(int i=0;i<10;i++)
         {
-            GameObject level = Instantiate(levelPrefab) as GameObject;
+            GameObject level = gameObject.transform.GetChild(i).gameObject;
             level.GetComponent<Level>().number = l+1;
-            level.transform.SetParent(transform);
-            level.transform.localPosition = startPosition + Vector3.right * (posCOunter % countInRow) * offset.x + Vector3.down * (posCOunter / countInColumn) * offset.y;
-            level.transform.localScale = Vector3.one;
-            if (posCOunter + 1 >= countInRow * countInColumn) break;
-            posCOunter++;
+            level.GetComponent<Level>().GetData();
+            l++;
         }
         if (genfrom == 0) backButton.gameObject.SetActive(false);
         else if (genfrom > 0) backButton.gameObject.SetActive(true);
@@ -48,18 +47,23 @@ public class SelectLevels : MonoBehaviour
     {
         foreach (Transform item in transform)
         {
-            Destroy(item.gameObject);
+            item.GetChild(4).gameObject.SetActive(false);
+            item.GetChild(5).gameObject.SetActive(false);
+            item.GetChild(6).gameObject.SetActive(false);
+            item.GetChild(7).gameObject.SetActive(false);
         }
     }
 
     public void Next()
     {
-        GenerateGrid(firstShownLevelInGrid + countInRow * countInColumn);
+        print("next");
+        GenerateGrid(firstShownLevelInGrid +10);
     }
 
     public void Back()
     {
-        GenerateGrid(firstShownLevelInGrid - countInRow * countInColumn);
+        GenerateGrid(firstShownLevelInGrid - 10);
+        print("back");
 
     }
 

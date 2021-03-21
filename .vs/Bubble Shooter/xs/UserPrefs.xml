@@ -1,0 +1,45 @@
+﻿<Properties StartupConfiguration="{18E52461-E954-2D0B-8111-CD5DFBA73FBF}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/BubbleShooterEasterBunny/Scripts/GUI/NetworkCoordination.cs">
+    <Files>
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/BotManager.cs" Line="1" Column="1" IsPinned="True" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ColorBallScript.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/creatorBall.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/GameFinishedShow.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/GameSceneController.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/LinePoint.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/RemainLine.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/SmoothMove.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/GamePlay.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/InitScript.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/LevelData.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/GUI/PreTutorial.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/TargetIcon.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/GUI/Perfect.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ball.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/DrawLine.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/RabbitAnim.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/ColyseusClient.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/mainscript.cs" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/GUI/AnimationManager.cs" Line="204" Column="58" />
+      <File FileName="Assets/BubbleShooterEasterBunny/Scripts/GUI/NetworkCoordination.cs" Line="35" Column="41" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="eef42cba-0f69-479f-8d57-70f491ea7bf6" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/Grid.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/Grid.cs" line="69" column="1" />
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/creatorBall.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/creatorBall.cs" line="202" column="1" />
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/bouncer.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/bouncer.cs" line="212" column="1" />
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/mainscript.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/mainscript.cs" line="295" column="1" />
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ball.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ball.cs" line="1008" column="1" />
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ball.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ball.cs" line="1137" column="1" />
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ball.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ball.cs" line="1137" column="1" />
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ball.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/ball.cs" line="606" column="1" />
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/mainscript.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/mainscript.cs" line="538" column="1" />
+      <Breakpoint file="/Volumes/Data/Wani/Bubble Shooter/Assets/BubbleShooterEasterBunny/Scripts/Bubbles/mainscript.cs" relfile="Assets/BubbleShooterEasterBunny/Scripts/Bubbles/mainscript.cs" line="537" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

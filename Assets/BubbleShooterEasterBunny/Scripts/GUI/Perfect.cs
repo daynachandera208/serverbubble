@@ -6,8 +6,8 @@ public class Perfect : MonoBehaviour {
     public Sprite[] images;
 	// Use this for initialization
 	void OnEnable () {
-        GetComponent<Image>().sprite = images[Random.Range( 0, images.Length )];
-        GetComponent<Image>().SetNativeSize();
+//        GetComponent<Image>().sprite = images[Random.Range( 0, images.Length )];
+  //      GetComponent<Image>().SetNativeSize();
         StartCoroutine(PerfectAction());
 	}
 

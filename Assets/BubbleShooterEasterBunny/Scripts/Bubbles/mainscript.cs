@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using InitScriptName;
 
-
+//Singleton class applied on camera responsible for main activitys and there data storage
 [RequireComponent(typeof(AudioSource))]
 public class mainscript : MonoBehaviour {
     public int currentLevel;
@@ -301,7 +301,7 @@ public class mainscript : MonoBehaviour {
     }
 
     // Update is called once per frame
-    public void PowerUPCall()
+    public void PowerUPCall()//logic for bubblegum spreding and multicolor balls color changing
     {
         //GamePlay.Instance.ChangeMultiColorBallColor();
         GameObject[] fixedBallsForMulticolor = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
@@ -340,7 +340,7 @@ public class mainscript : MonoBehaviour {
 
         }*/
     }
-    void Update() {
+    void Update() {//check game status and preform activities according to them like ui change star adding etc.
         if (noSound)
             GetComponent<AudioSource>().volume = 0;
         if (!noSound)
@@ -544,7 +544,7 @@ public class mainscript : MonoBehaviour {
 	}
 
 	
-	public GameObject createFirstBall(Vector3 vector3){
+	public GameObject createFirstBall(Vector3 vector3){//creates new ball fro shooting logic for spawning powerups by probability
 
         bool ismulticolor=false, isbomb=false, isfireball=false;
         GameObject gm = GameObject.Find ("Creator");
@@ -603,14 +603,14 @@ public class mainscript : MonoBehaviour {
 
         return gm.GetComponent<creatorBall>().createBall(vector3, BallColor.random, true,ismulticolor,isbomb,isfireball);
     }
-    public void LimitAmmountMinusBy1()
+    public void LimitAmmountMinusBy1()//used to decrement moves and increments step counts for powerups
     {
         LevelData.LimitAmount = LevelData.LimitAmount - 1;
         moveCountForMultiColorBall++;
         moveCountForbomb++;
         moveCountForfireball++;
     }
-	public void connectNearBallsGlobal(){
+	public void connectNearBallsGlobal(){//responsible for checking hangigng balls and remove them similiar logic is used to destroy balls in ball.cs
 		///connect near balls
 		fixedBalls = GameObject.FindObjectsOfType(typeof(GameObject)) as GameObject[];
 		foreach(GameObject obj in fixedBalls) {
@@ -668,7 +668,7 @@ public class mainscript : MonoBehaviour {
     {
        //StartCoroutine(destroyAloneBall());
     }
-    public IEnumerator destroyAloneBall(){
+    public IEnumerator destroyAloneBall(){//main logic for destroying free floating balls
         mainscript.Instance.newBall2 = null;
 
         //if( GamePlay.Instance.GameStatus == GameState.Playing )
@@ -747,7 +747,7 @@ public class mainscript : MonoBehaviour {
         }
     }
 
-    public void GetColorsInGame()
+    public void GetColorsInGame()//used to get colors in game for new color for ball and for random balls while spawning
     {
         int i = 0;
         colorsDict.Clear();
@@ -780,7 +780,7 @@ public class mainscript : MonoBehaviour {
             StartCoroutine( CheckFreeChickenCor() );
     }
 
-    IEnumerator CheckFreeChickenCor()
+    IEnumerator CheckFreeChickenCor()//main logic for checking free chickens (Win)in rounded levels (chicken levels mode=1)
     {
         //  yield return new WaitForSeconds( Mathf.Clamp( (float)countOfPreparedToDestroy / 100, 1.5f, (float)countOfPreparedToDestroy / 100 ) );
         GamePlay.Instance.GameStatus = GameState.WaitForChicken;
@@ -872,7 +872,7 @@ public class mainscript : MonoBehaviour {
 			//AudioSource.PlayClipAtPoint(pops, transform.position);
 	}
 	
-	public void destroy( ArrayList b){
+	public void destroy( ArrayList b){ // logic for destroying balls in arraylist A
 		Camera.main.GetComponent<mainscript>().bounceCounter = 0;
 		int scoreCounter = 0;
 		int rate = 0;
@@ -910,7 +910,7 @@ public class mainscript : MonoBehaviour {
 
 	}
 
-	public void ChangeBoost(){
+	public void ChangeBoost(){//used to change the balls to powerup
         SoundBase.Instance.GetComponent<AudioSource>().PlayOneShot( SoundBase.Instance.swish[0] );
 		Grid.waitForAnim = true;
 		GameObject ball1 = boxSecond.GetComponent<Grid>().Busy;
@@ -938,8 +938,11 @@ public class mainscript : MonoBehaviour {
     }
     public IEnumerator GameFinishedAction()
     {
+        print(" Game Finished from oppoent ...<<<<<<<<<<<<<<<<<<<<<<<<");
         GameObject.Find("Canvas").transform.Find("GameFinished").gameObject.SetActive(true);
         yield return new WaitForSeconds(1.5f);
+        print(" Loading result level ...<<<<<<<<<<<<<<<<<<<<<<<<");
+
         Application.LoadLevel("GameFinished");
     }
     public void CallGameFinished()
@@ -949,6 +952,8 @@ public class mainscript : MonoBehaviour {
 
     public void destroyhanngingballs()
     {
+
+
         StartCoroutine(destroyAloneBall());
 
     }

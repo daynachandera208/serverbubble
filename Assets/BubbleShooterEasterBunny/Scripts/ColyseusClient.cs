@@ -11,7 +11,7 @@ using Colyseus;
 using Colyseus.Schema;
 
 using GameDevWare.Serialization;
-
+//client script for connection and mgmt of server connectivity
 [Serializable]
 class Metadata
 {
@@ -61,7 +61,7 @@ public class ColyseusClient : MonoBehaviour {
 	private bool initialStateReceived = false;
 	public bool isGameQuit;
 	// Use this for initialization
-	void Start () {
+	void Start () {//initialization
 		/* Demo UI */
 		isGameQuit = false;
 		 isFirstCall = true;
@@ -76,12 +76,13 @@ public class ColyseusClient : MonoBehaviour {
 		}
 	}
 
-	public async void ConnectToServer ()
+	public async void ConnectToServer ()//method for connecting to server
 	{
 		/*
 		 * Get Colyseus endpoint from InputField
 		 */
-		//string endpoint = "https://floating-wave-93492.herokuapp.com:2567";
+		
+		//string endpoint = "ws://floating-wave-93492.herokuapp.com";
 		string endpoint = "ws://localhost:2567";
 
 		Debug.Log("Connecting to " + endpoint);
@@ -91,24 +92,25 @@ public class ColyseusClient : MonoBehaviour {
 		 */
 		client = ColyseusManager.Instance.CreateClient(endpoint);
 
-		await client.Auth.Login();
+		/*await client.Auth.Login();
 
 		var friends = await client.Auth.GetFriends();
 
 		// Update username
 		client.Auth.Username = "Jake";
-		await client.Auth.Save();
+		await client.Auth.Save();*/
 	}
 
-	public async void CreateRoom()
+	public async void CreateRoom()//for creation of room 
 	{
 		room = await client.Create<State>(roomName, new Dictionary<string, object>() { });
 		//roomNoneSerializer = await client.Create("no_state", new Dictionary<string, object>() { });
 		//roomFossilDelta = await client.Create<IndexedDictionary<string, object>>("fossildelta", new Dictionary<string, object>() { });
+		print("----" + room);
 		RegisterRoomHandlers();
 	}
 
-	public async void JoinOrCreateRoom()
+	public async void JoinOrCreateRoom()// for joining available room if not found any room than creates one mainly used 
 	{
 		room = await client.JoinOrCreate<State>(roomName, new Dictionary<string, object>() { });
 		RegisterRoomHandlers();
@@ -117,6 +119,7 @@ public class ColyseusClient : MonoBehaviour {
 	public async void JoinRoom ()
 	{
 		room = await client.Join<State>(roomName, new Dictionary<string, object>() { });
+		
 		RegisterRoomHandlers();
 	}
 
@@ -136,7 +139,7 @@ public class ColyseusClient : MonoBehaviour {
 		RegisterRoomHandlers();
 	}
 
-	public void RegisterRoomHandlers()
+	public void RegisterRoomHandlers()//used to assign properites and assign handlers for different state changing events
 	{
 		
 
@@ -227,7 +230,7 @@ public class ColyseusClient : MonoBehaviour {
 		}
 	}
 
-	public void SendMessage(String msg)
+	public void SendMessage(String msg)//used to instruct server about scores level win loose etc.
 	{
 		if (room != null)
 		{
@@ -240,11 +243,16 @@ public class ColyseusClient : MonoBehaviour {
 		}
 	}
 
-	void OnStateChangeHandler(State state, bool isFirstState)
+	void OnStateChangeHandler(State state, bool isFirstState)//main code where state changes comes and called to different changes
 	{
 		// Setup room first state
 		Debug.Log("State has been updated!-/-/-/-//-//-/--/--/-/-/" + state.roomStatus);
-
+		if (state.roomStatus== "GameFinished")
+		{
+			//GameObject.Find("Canvas").transform.Find("GameFinished").gameObject.SetActive(true);
+		//	yield return new WaitForSeconds(1.5f);
+			Application.LoadLevel("GameFinished");
+		}
 
 		/*if (state.roomStatus == "waiting")
 		{
@@ -258,7 +266,7 @@ public class ColyseusClient : MonoBehaviour {
 			{
 				isFirstCall = false;
 
-				//OnGameStateChangeMenuHandler?.Invoke(this, state);
+				//OnGameStateChangeMenuHandler?.Invoke(this, state);this logic is replaced with other no need fro this handlar
 			}
 			//Debug.Log("Game started for first time-/-/-/-"+isFirstState);
 			//OnGameStateChange?.Invoke(this, room.State.roomStatus);

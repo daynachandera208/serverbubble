@@ -43,7 +43,14 @@ public class NetworkCoordination : MonoBehaviour
                 //Debug.Log("-/-////-/-/-/-/-/-/-/-/-*****-"+ GameObject.Find("MenuMessage").GetComponent<TextMeshProUGUI>().text);
                  GameObject.Find("MenuMessage").GetComponent<TextMeshProUGUI>().enabled = true;
                  GameObject.Find("MenuMessage").GetComponent<TextMeshProUGUI>().text = "Waiting For Opponent...!";
-                 GameObject.Find("Canvas").transform.Find("PlayOffline").gameObject.SetActive(false);
+                ColyseusClient.Instance.isoffline = false;
+                GameObject.Find("Canvas").transform.Find("PlayOffline").gameObject.SetActive(false);
+                 GameObject.Find("StatusDialog").GetComponent<Image>().enabled=true;
+                GameObject.Find("PlayMain").transform.GetChild(0).gameObject.SetActive(false);
+                GameObject.Find("PlayMain").transform.GetChild(1).gameObject.SetActive(true);
+                GameObject.Find("PlayMain").GetComponent<RectTransform>().anchoredPosition = new Vector3(0.5f,-38f,0f);
+
+
             }
         }
         else
@@ -51,9 +58,15 @@ public class NetworkCoordination : MonoBehaviour
            // ColyseusClient.Instance.OnGameStateChangeMenuHandler -= GameStateChangeHandler;
             ColyseusClient.Instance.LeaveRoom();
             GameObject.Find("MenuMessage").GetComponent<TextMeshProUGUI>().enabled = true;
+            GameObject.Find("PlayMain").GetComponent<RectTransform>().anchoredPosition = new Vector3(0.5f, 136f, 0f);
+
+
             GameObject.Find("MenuMessage").GetComponent<TextMeshProUGUI>().text = "Tap Play to Start Game.";
-            
+            GameObject.Find("MenuMessage").GetComponent<TextMeshProUGUI>().enabled = false;
+            GameObject.Find("StatusDialog").GetComponent<Image>().enabled = false;
             GameObject.Find("Canvas").transform.Find("PlayOffline").gameObject.SetActive(true);
+            GameObject.Find("PlayMain").transform.GetChild(0).gameObject.SetActive(true);
+            GameObject.Find("PlayMain").transform.GetChild(1).gameObject.SetActive(false);
             print("Left The game");
         }
     }

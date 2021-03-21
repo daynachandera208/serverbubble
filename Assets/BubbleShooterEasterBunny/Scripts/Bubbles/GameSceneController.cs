@@ -8,12 +8,14 @@ public class GameSceneController : MonoBehaviour
 {
     // Start is called before the first frame update
     public uint TimerSeconds=600;
+    public bool isGameisGoingON=true;
     void Start()
     {
+       
         if (ColyseusClient.Instance.isoffline == false)
         {
             ColyseusClient.Instance.OnGameStateChangeGameHandler += GameStateChangeHandler;
-
+            isGameisGoingON = true;
             Invoke("GetScores", 1f);
             // StartCoroutine("ClockCountdown");
         }
@@ -74,7 +76,11 @@ public class GameSceneController : MonoBehaviour
 
         if (e.roomStatus== "GameFinished")
         {
-            mainscript.Instance.CallGameFinished();
+            if (isGameisGoingON == true)
+            {
+                isGameisGoingON = false;
+              //  mainscript.Instance.CallGameFinished();
+            }
         }
     }
 

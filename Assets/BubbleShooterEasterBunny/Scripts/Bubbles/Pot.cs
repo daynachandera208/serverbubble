@@ -14,13 +14,13 @@ public class Pot : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.name.Contains("ball"))
+        if (col.gameObject.name.Contains("ball") || System.Array.Exists(GamePlay.Instance.avoidToChangeInMulticolor, element => element == col.gameObject.tag.ToString()))
         {
+//            print(col.gameObject.tag);
             col.gameObject.GetComponent<ball>().SplashDestroy();
             col.gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
             col.gameObject.GetComponent<Collider2D>().enabled = false;
-            if (col.gameObject.GetComponent<bouncer>().bGumNo == 0 && col.gameObject.GetComponent<bouncer>().chainNo == 0 && col.gameObject.GetComponent<bouncer>().isMultiColor == false && !System.Array.Exists(GamePlay.Instance.avoidToChangeInMulticolor, element => element == col.gameObject.tag.ToString()))
-
+            if(col.gameObject.GetComponent<bouncer>().bGumNo == 0 && col.gameObject.GetComponent<bouncer>().chainNo == 0 && !System.Array.Exists(GamePlay.Instance.avoidToChangeInMulticolor, element => element == col.gameObject.tag.ToString()))
                 PlaySplash(col.contacts[0].point);
         }
     }

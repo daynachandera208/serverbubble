@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//class used to read bot data used for server side bot
 public class BotManager : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -43,7 +43,7 @@ public class BotManager : MonoBehaviour
 
 
 
-    float[] ProcessBotDataFromString(string mapText)
+    float[] ProcessBotDataFromString(string mapText)//main logic for reading bot data
     {
         string[] lines = mapText.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
        

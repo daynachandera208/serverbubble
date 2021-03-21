@@ -97,13 +97,13 @@ public class Counter : MonoBehaviour {
         if( Application.loadedLevelName == "map" )
         {
             if( InitScript.Instance.currentTarget == Target.Top ) return "Clear the top";
-            else if( InitScript.Instance.currentTarget == Target.Chicken ) return "Rescue the chicken";
+            else if( InitScript.Instance.currentTarget == Target.Chicken ) return "Treasure hunt";
 
         }
         else
         {
             if( LevelData.mode == ModeGame.Vertical ) return "Clear the top";
-            else if( LevelData.mode == ModeGame.Rounded ) return "Rescue the chicken";
+            else if( LevelData.mode == ModeGame.Rounded ) return "Treasure hunt";
 
         }
         return "";

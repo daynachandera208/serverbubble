@@ -23,7 +23,7 @@ public class ColorBallScript : MonoBehaviour {
     public BallColor mainColor;
 	// Use this for initialization
 	void Start () {
-        
+     //   print(this);
 	}
 
     public void SetColor(BallColor color, int chainLevel=0)
@@ -100,8 +100,10 @@ public class ColorBallScript : MonoBehaviour {
             mainColor = color;
             foreach (Sprite item in sprites)
             {
-                if (item.name == "ball_" + color)
+              //  print("-------------------------" + item + "color" + color.ToString());
+                if (item.name == "ball_" + color|| item.name==color.ToString())
                 {
+                //    print("-------------------------"+item+"color"+color.ToString());
                     GetComponent<SpriteRenderer>().sprite = item;
                     SetSettings(color);
                     gameObject.tag = "" + color;
